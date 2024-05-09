@@ -115,7 +115,7 @@
         }
 
         await SignInManager.SignInAsync(user, isPersistent: false);
-        RedirectManager.RedirectTo(ReturnUrl);
+        RedirectManager.RedirectTo("/dashboard");
     }
 
     private ApplicationUser CreateUser()
