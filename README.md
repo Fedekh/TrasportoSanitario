@@ -17,7 +17,7 @@
 
 #### Gestione domande prenotazione
 
-* Creazione, modifica e cancellazione di domande
+* Creazione, modifica e cancellazione di domandee
 * Domande a risposta singola o multipla, oppure a risposta aperta
 * Attivazione/disattivazione di domande
 
