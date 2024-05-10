@@ -1,0 +1,52 @@
+﻿@page "/dashboard"
+@inject AuthenticationStateProvider authenticationStateProvider
+@inject UserManager<ApplicationUser> userManager
+
+@attribute [Authorize]
+
+<PageTitle>Dashboard</PageTitle>
+
+<h1>You are authenticated</h1>
+
+@if (IsAdmin)
+{
+    <p>Sei un admin</p>
+}
+else if(IsSuperAdmin)
+{
+    <p>Sei superadmin</p>
+}
+else
+{
+    <p>sei solo user</p>
+}
+
+@code{
+
+    private string Username {get;set;} = "";
+
+    private bool IsAdmin { get; set; } = false;
+
+    private bool IsSuperAdmin { get; set; } = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        AuthenticationState authState = await authenticationStateProvider.GetAuthenticationStateAsync();
+        ClaimsPrincipal? user = authState.User;
+        if (user != null && user.Identity.IsAuthenticated)
+        {
+            Username = user.Identity.Name;
+            ApplicationUser? appUser = await userManager.GetUserAsync(user);
+
+            if (appUser != null)
+            {
+                IsAdmin = await userManager.IsInRoleAsync(appUser, "admin");
+                IsSuperAdmin = await userManager.IsInRoleAsync(appUser, "sa");
+            }
+        }
+        else
+        {
+            return;
+        }
+    }
+}

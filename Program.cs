@@ -39,7 +39,7 @@ builder.Services.AddServerSideBlazor().AddCircuitOptions(e => {
     e.DetailedErrors = true;
 });
 
-
+builder.Services.AddTelerikBlazor();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
